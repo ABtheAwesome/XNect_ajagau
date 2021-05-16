@@ -3,6 +3,7 @@
 '''
 Script for evaluating accuracy on Imagenet Validation Set.
 '''
+print("Test print")
 import os
 import logging
 import sys
