@@ -3,7 +3,7 @@
 '''
 Script for evaluating accuracy on Imagenet Validation Set.
 '''
-print("Test print")
+print(".... Starting script for evaluating accuracy on Imagenet Validation Set (evaluate_imagenet.py line 6)")
 import os
 import logging
 import sys
@@ -20,7 +20,7 @@ torch.backends.cudnn.benchmark = True
 from util.imagenet_data_loader import get_data_loader
 
 
-
+#Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
 def opts_parser():
     usage = 'Configure the dataset using imagenet_data_loader'
     parser = ArgumentParser(description=usage)
