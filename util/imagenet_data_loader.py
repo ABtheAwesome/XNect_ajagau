@@ -16,7 +16,6 @@ def get_data_loader(augment=False, batch_size=50, base_path="path_to_ImageNet"):
 
     print('Loading ImageNet in all its glory... (util/imagenet_data_loader.py line 17)')
     dataset = dset.ImageFolder
-    print(dataset)
 
     # Prepare transforms and data augmentation
     norm_transform = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
