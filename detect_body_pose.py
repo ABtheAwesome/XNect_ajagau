@@ -44,7 +44,8 @@ def opts_parser():
 
 
 def start_recognizing_body_pose(model_class, model_config, model_weights, dataset_base_path, gpu_id, simulate_pruning, pruned_and_fused, gamma_thresh):
-    print("Starting to recognize body pose")
+    print("Starting to recognize body pose (detect_body_pose.py line 47)")
+
     model_module = importlib.import_module('models.'+model_class)
     net = model_module.Net(nClasses=1000, config=model_config)
     net.load_state_dict(torch.load(model_weights, map_location= lambda storage, loc: storage))
@@ -73,6 +74,8 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
         norm_transform
     ])
 
+    print("Loading local dataset (detect_body_pose.py line 77)")
+    print(dataset_base_path)
     # loading dataset and transforming it
     dataset = dset.ImageFolder(dataset_base_path, transform=transform)
 
