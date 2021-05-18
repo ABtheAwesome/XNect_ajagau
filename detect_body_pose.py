@@ -1,4 +1,14 @@
 from argparse import ArgumentParser
+import importlib
+
+import matplotlib.pyplot as plt
+import helper
+
+import torch
+import torch.nn as nn
+import torchvision.datasets as dset
+import torchvision.transforms as transforms
+torch.backends.cudnn.benchmark = True
 
 print("Start detecting body pose on one image")
 
@@ -16,7 +26,7 @@ def opts_parser():
         '--model_weights', type=str, default='./weights/SelecSLS60_statedict.pth', metavar='FILE',
         help='Path to model weights')
     parser.add_argument(
-        '--imagenet_base_path', type=str, default='./data', metavar='FILE',
+        '--dataset_base_path', type=str, default='./data', metavar='FILE',
         help='Path to ImageNet dataset')
     parser.add_argument(
         '--gpu_id', type=int, default=0,
@@ -31,3 +41,52 @@ def opts_parser():
         '--gamma_thresh', type=float, default=1e-4,
         help='gamma threshold to use for simulating pruning')
     return parser
+
+
+def start_recognizing_body_pose(model_class, model_config, model_weights, dataset_base_path, gpu_id, simulate_pruning, pruned_and_fused, gamma_thresh):
+    print("Starting to recognize body pose")
+    model_module = importlib.import_module('models.'+model_class)
+    net = model_module.Net(nClasses=1000, config=model_config)
+    net.load_state_dict(torch.load(model_weights, map_location= lambda storage, loc: storage))
+
+    device = torch.device("cuda:"+str(gpu_id) if torch.cuda.is_available() else "cpu")
+    net = net.to(device)
+    if pruned_and_fused:
+        print('Fusing BN and pruning channels based on gamma ' + str(gamma_thresh))
+        net.prune_and_fuse(gamma_thresh)
+
+    if simulate_pruning:
+        print('Simulating pruning by zeroing all features with gamma less than '+str(gamma_thresh))
+        with torch.no_grad():
+            for n, m in net.named_modules():
+                if isinstance(m, nn.BatchNorm2d):
+                    m.weight[abs(m.weight) < gamma_thresh] = 0
+                    m.bias[abs(m.weight) < gamma_thresh] = 0
+
+    # defines transformation of images (so every image has the same size etc) 
+    # also images get transformed to PyTorch tensors
+    norm_transform = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    transform = transforms.Compose([
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        norm_transform
+    ])
+
+    # loading dataset and transforming it
+    dataset = dset.ImageFolder(dataset_base_path, transform=transform)
+
+    helper.imshow(dataset[0], normalize = False)
+
+
+
+
+
+def main():
+    parser = opts_parser()
+    args = parser.parse_args()
+
+    start_recognizing_body_pose(**vars(args))
+
+if __name__ == '__main__':
+    main()
