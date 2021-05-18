@@ -2,7 +2,6 @@ from argparse import ArgumentParser
 import importlib
 
 import matplotlib.pyplot as plt
-import helper
 
 import torch
 import torch.nn as nn
@@ -74,12 +73,11 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
         norm_transform
     ])
 
-    print("Loading local dataset (detect_body_pose.py line 77)")
-    print(dataset_base_path)
+    print(f"Loading local dataset (detect_body_pose.py line 77) in {dataset_base_path}")
     # loading dataset and transforming it
     dataset = dset.ImageFolder(dataset_base_path, transform=transform)
 
-    helper.imshow(dataset[0], normalize = False)
+    plt.imshow(dataset[0], cmap=None, norm=None, aspect=None, interpolation=None, alpha=None, vmin=None, vmax=None, origin=None, extent=None) 
 
 
 
