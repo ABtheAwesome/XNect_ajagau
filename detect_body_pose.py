@@ -78,6 +78,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     print(f"Loading local dataset (detect_body_pose.py line 77) in {dataset_base_path}")
     # loading dataset and transforming it
     dataset = dset.ImageFolder(dataset_base_path, transform=transform)
+    kwargs = {'num_workers': 8, 'pin_memory': True}
     test_loader = DataLoader(dataset, batch_size=1,
                               shuffle=True, **kwargs)
 
