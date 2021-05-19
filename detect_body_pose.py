@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
+from torch.utils.data import DataLoader
 torch.backends.cudnn.benchmark = True
 
 print("Start detecting body pose on one image")
@@ -77,10 +78,12 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     print(f"Loading local dataset (detect_body_pose.py line 77) in {dataset_base_path}")
     # loading dataset and transforming it
     dataset = dset.ImageFolder(dataset_base_path, transform=transform)
+    test_loader = DataLoader(dataset, batch_size=1,
+                              shuffle=True, **kwargs)
 
-    print(type(dataset))
-    #print(np.shape(dataset))
-    plt.imshow(dataset.numpy()[0], cmap='gray')
+    print(f"The type of the dataset is: {type(test_loader)}")
+    print(np.shape(test_loader))
+    plt.imshow(test_loader.numpy()[0], cmap='gray')
 
 
 
