@@ -78,9 +78,9 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     # loading dataset and transforming it
     dataset = dset.ImageFolder(dataset_base_path, transform=transform)
 
-    print(np.shape(dataset))
-    plt.imshow(dataset[0], cmap=None, norm=None, aspect=None, interpolation=None, alpha=None, vmin=None, vmax=None, origin=None, extent=None) 
-
+    print(type(dataset))
+    #print(np.shape(dataset))
+    plt.imshow(dataset.numpy()[0], cmap='gray')
 
 
 
