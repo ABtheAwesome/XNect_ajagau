@@ -75,14 +75,14 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
         norm_transform
     ])
 
-    print(f"Loading local dataset (detect_body_pose.py line 77) in {dataset_base_path}")
+    print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
     # loading dataset and transforming it
     dataset = dset.ImageFolder(dataset_base_path, transform=transform)
     test_loader = DataLoader(dataset, batch_size=1,
                               shuffle=True, num_workers=0)
 
-    print(f"The type of the loaded dataset is: {type(test_loader)}")
-    print(f"Shape of loaded dataset is: {np.shape(test_loader)}")
+    print("The type of the loaded dataset is " + type(test_loader))
+    print("Shape of loaded dataset is: " + (np.shape(test_loader)))
     #print(f"The type of the img is: {type(img)}")
     #print(f"Shape of img is: {np.shape(img)}")
     plt.imshow(test_loader, cmap='gray')
