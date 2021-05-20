@@ -80,13 +80,12 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     dataset = dset.ImageFolder(dataset_base_path, transform=transform)
     test_loader = DataLoader(dataset, batch_size=1,
                               shuffle=True, num_workers=0)
-    img, label = test_loader
 
     print(f"The type of the loaded dataset is: {type(test_loader)}")
     print(f"Shape of loaded dataset is: {np.shape(test_loader)}")
-    print(f"The type of the img is: {type(img)}")
-    print(f"Shape of img is: {np.shape(img)}")
-    plt.imshow(img, cmap='gray')
+    #print(f"The type of the img is: {type(img)}")
+    #print(f"Shape of img is: {np.shape(img)}")
+    plt.imshow(test_loader, cmap='gray')
 
 
 
