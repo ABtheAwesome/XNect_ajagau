@@ -34,10 +34,11 @@ def get_data_loader(augment=False, batch_size=50, base_path="path_to_ImageNet"):
     kwargs = {'num_workers': 8, 'pin_memory': True}
 
     train_set = dataset(
-        root=base_path+'/train/',
+        root=base_path+'/TS1/',
         transform=train_transform if augment else test_transform)
-    test_set = dataset(base_path+'/val/',
+    test_set = dataset(base_path+'/TS2/',
                            transform=test_transform)
+    
 
     # Prepare data loaders
     train_loader = DataLoader(train_set, batch_size=batch_size,
