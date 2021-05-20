@@ -31,7 +31,8 @@ def get_data_loader(augment=False, batch_size=50, base_path="path_to_ImageNet"):
         transforms.ToTensor(),
         norm_transform
     ])
-    kwargs = {'num_workers': 8, 'pin_memory': True}
+    #kwargs = {'num_workers': 8, 'pin_memory': True}
+    kwargs = {'num_workers': 2, 'pin_memory': True}
 
     train_set = dataset(
         root=base_path,

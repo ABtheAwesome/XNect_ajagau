@@ -63,7 +63,8 @@ def accuracy(output, target, topk=(1,)):
 
     res = []
     for k in topk:
-        correct_k = correct[:k].view(-1).float().sum(0, keepdim=False)
+        print(np.shape(correct[:k]))
+        correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
         res.append(correct_k.mul_(100.0 / batch_size))
     return res
 
@@ -89,7 +90,7 @@ def evaluate_imagenet_validation_accuracy(model_class, model_config, model_weigh
 
     net.eval()
     #_,test_loader = get_data_loader(augment=False, batch_size=100, base_path=imagenet_base_path)
-    _,test_loader = get_data_loader(augment=False, batch_size=10, base_path=imagenet_base_path)
+    _,test_loader = get_data_loader(augment=False, batch_size=5, base_path=imagenet_base_path)
     with torch.no_grad():
         val1_err = []
         val5_err = []
