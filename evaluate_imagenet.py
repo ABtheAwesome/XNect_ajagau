@@ -35,7 +35,7 @@ def opts_parser():
         help='Path to model weights')
     parser.add_argument(
         #'--imagenet_base_path', type=str, default='<PATH_TO_IMAGENET>', metavar='FILE',
-        '--imagenet_base_path', type=str, default='../MultiPersonTestSet/TS1', metavar='FILE',
+        '--imagenet_base_path', type=str, default='../MultiPersonTestSet', metavar='FILE',
         help='Path to ImageNet dataset')
     parser.add_argument(
         '--gpu_id', type=int, default=0,
