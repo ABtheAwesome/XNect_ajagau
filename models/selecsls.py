@@ -70,6 +70,8 @@ def bn_fuse(c, b):
 
     return W.clone().detach(), bias.clone().detach()
 
+
+#page 9, image a
 class SelecSLSBlock(nn.Module):
     def __init__(self, inp, skip, k, oup, isFirst, stride):
         super(SelecSLSBlock, self).__init__()
