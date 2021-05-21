@@ -11,6 +11,9 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 torch.backends.cudnn.benchmark = True
 
+import models.selecsls
+from models.selecsls import SelecSLSBlock as stage1
+
 print("Start detecting body pose on one image")
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
@@ -27,8 +30,8 @@ def opts_parser():
         '--model_weights', type=str, default='./weights/SelecSLS60_statedict.pth', metavar='FILE',
         help='Path to model weights')
     parser.add_argument(
-        '--dataset_base_path', type=str, default='./data', metavar='FILE',
-        help='Path to ImageNet dataset')
+        '--dataset_base_path', type=str, default='../MultiPersonTestSet', metavar='FILE',
+        help='Path to dataset')
     parser.add_argument(
         '--gpu_id', type=int, default=0,
         help='Which GPU to use.')
@@ -78,14 +81,16 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
     # loading dataset and transforming it
     dataset = dset.ImageFolder(dataset_base_path, transform=transform)
-    test_loader = DataLoader(dataset, batch_size=1,
-                              shuffle=True, num_workers=0)
+    test_loader = DataLoader(dataset, batch_size=10,
+                              shuffle=True, num_workers=2, pin_memory=True)
 
-    print("The type of the loaded dataset is " + type(test_loader))
-    print("Shape of loaded dataset is: " + (np.shape(test_loader)))
+    #print("The type of the loaded dataset is " + type(test_loader))
+    #print("Shape of loaded dataset is: " + (np.shape(test_loader)))
     #print(f"The type of the img is: {type(img)}")
     #print(f"Shape of img is: {np.shape(img)}")
-    plt.imshow(test_loader, cmap='gray')
+    #plt.imshow(test_loader, cmap='gray')
+    for t in test_loader:
+        stage1.forward(t)
 
 
 
