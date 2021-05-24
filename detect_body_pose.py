@@ -94,7 +94,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     test_set = dataset(dataset_base_path,transform=transform)
 
     i = 0
-    for img in test_set:
+    for img, label in test_set:
         print("Loaded img" + str(i) + "in test_set with shape" + str(img.shape) + "and type" + str(type(img)))
         i += 1
         if i>4:
