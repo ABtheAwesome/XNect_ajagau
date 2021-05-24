@@ -105,12 +105,13 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     print(type(test_loader))
     i = 0
     with torch.no_grad():
-        for t, l in test_loader:
+        for model_input, label in test_loader:
             print("-------------- Image: " + str(i) + " -----------------")
-            model_input = t
-            print("Shape of modelinput:" + str(t.shape))
-            pred = F.log_softmax(net(t.to(device)))
-            print("Label is: " + str(l) + "with type " + str(type(l)))
+            print("Shape of modelinput:" + str(model_input.shape))
+            print("Label is: " + str(label) + "with type " + str(type(label)))            
+            pred = F.log_softmax(net(model_input.to(device)))
+            print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
+            print(pred)
             i += 1
             if i>4:
                 break
