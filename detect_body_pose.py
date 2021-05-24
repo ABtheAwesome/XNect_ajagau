@@ -103,14 +103,17 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     print("Loaded dataset as type of: ")
     print(type(test_loader))
+    i = 0
     with torch.no_grad():
         for t, l in test_loader:
             model_input = t
-            print("Shape of modelinput:")
-            print(t.shape)
+            print("Shape of modelinput:" + t.shape)
             pred = F.log_softmax(net(t.to(device)))
-            print(type(l))
-            break
+            print(type(pred))
+            print("Label is: " + l)
+            i += 1
+            if i>4:
+                break
             #pred1 = stage1.forward(stage1, t)
 
 
