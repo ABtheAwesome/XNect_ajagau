@@ -101,9 +101,6 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     #images, labels = dataiter.next()    
     #imshow(uti.make_grid(images))
 
-    #print(f"The type of the img is: {type(img)}")
-    #print(f"Shape of img is: {np.shape(img)}")
-    #plt.imshow(test_loader, cmap='gray')
     print("Loaded dataset as type of: ")
     print(type(test_loader))
     with torch.no_grad():
