@@ -6,6 +6,7 @@ import numpy as np
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
@@ -90,7 +91,8 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     #print(f"Shape of img is: {np.shape(img)}")
     #plt.imshow(test_loader, cmap='gray')
     for t in test_loader:
-        stage1.forward(t)
+        pred = F.log_softmax(net(t.to(device)))
+        pred1 = stage1.forward(stage1, t)
 
 
 
