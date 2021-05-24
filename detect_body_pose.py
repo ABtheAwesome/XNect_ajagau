@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 import importlib
 
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -19,6 +20,7 @@ from models.selecsls import SelecSLSBlock as stage1
 print("Start detecting body pose on one image")
 
 def imshow(img):
+     matplotlib.get_backend()
      #img = img / 2 + 0.5
      npimg = img.numpy()
      trpimg = np.transpose(npimg, (1, 2, 0))
