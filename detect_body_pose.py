@@ -21,6 +21,8 @@ print("Start detecting body pose on one image")
 def imshow(img):
      #img = img / 2 + 0.5
      npimg = img.numpy()
+     print(type(npimg))
+     print(np.shape(npimg))
      plt.imshow(np.transpose(npimg, (1, 2, 0)))
      #print("here")
      plt.show()
