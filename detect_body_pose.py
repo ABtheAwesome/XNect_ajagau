@@ -17,6 +17,12 @@ from models.selecsls import SelecSLSBlock as stage1
 
 print("Start detecting body pose on one image")
 
+def imshow(img):
+     img = img / 2 + 0.5
+     npimg = img.numpy()
+     plt.imshow(np.transpose(npimg, (1, 2, 0)))
+     plt.show()
+
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
 def opts_parser():
     usage = 'Configure the dataset using image from ./data'
@@ -81,9 +87,12 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
     # loading dataset and transforming it
-    dataset = dset.ImageFolder(dataset_base_path, transform=transform)
-    test_loader = DataLoader(dataset, batch_size=10,
+    #dataset = dset.ImageFolder(dataset_base_path, transform=transform)
+    dataset = dset.ImageFolder
+    test_set = dataset(dataset_base_path,transform=transform)
+    test_loader = DataLoader(test_set, batch_size=1,
                               shuffle=True, num_workers=2, pin_memory=True)
+
 
     #print("The type of the loaded dataset is " + type(test_loader))
     #print("Shape of loaded dataset is: " + (np.shape(test_loader)))
