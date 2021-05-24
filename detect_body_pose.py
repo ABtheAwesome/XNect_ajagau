@@ -101,15 +101,17 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     #images, labels = dataiter.next()    
     #imshow(uti.make_grid(images))
 
+    #print(f"The type of the img is: {type(img)}")
+    #print(f"Shape of img is: {np.shape(img)}")
+    #plt.imshow(test_loader, cmap='gray')
     print("Loaded dataset as type of: ")
     print(type(test_loader))
     with torch.no_grad():
-        for model_input, l in test_loader:
-            model_i = model_input
-            print(model_input)
-            print(model_input.shape)
-            pred = F.log_softmax(net(model_input.to(device)))
-            #pred1 = stage1.forward(stage1, model_input)
+        for t, l in test_loader:
+            model_input = t
+            print(t)
+            pred = F.log_softmax(net(t.to(device)))
+            pred1 = stage1.forward(stage1, t)
 
 
 
