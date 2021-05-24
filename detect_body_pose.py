@@ -93,11 +93,11 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     dataset = dset.ImageFolder
     test_set = dataset(dataset_base_path,transform=transform)
     test_loader = DataLoader(test_set, batch_size=1,
-                              shuffle=True, num_workers=2, pin_memory=True)
+                              shuffle=False, num_workers=2, pin_memory=True)
 
 
     #show loaded dataset
-   # dataiter = iter(test_loader)
+    #dataiter = iter(test_loader)
     #images, labels = dataiter.next()    
     #imshow(uti.make_grid(images))
 
@@ -111,7 +111,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
             print("Label is: " + str(label) + "with type " + str(type(label)))            
             pred = F.log_softmax(net(model_input.to(device)))
             print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
-            print(pred)
+            #print(pred)
             i += 1
             if i>4:
                 break
