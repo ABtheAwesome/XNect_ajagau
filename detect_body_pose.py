@@ -21,10 +21,10 @@ print("Start detecting body pose on one image")
 def imshow(img):
      #img = img / 2 + 0.5
      npimg = img.numpy()
-     print(type(npimg))
-     print(np.shape(npimg))
-     plt.imshow(np.transpose(npimg, (1, 2, 0)))
-     #print("here")
+     trpimg = np.transpose(npimg, (1, 2, 0))
+     print(type(trpimg))
+     print(np.shape(trpimg))
+     pltimg = plt.imshow(trpimg)
      plt.show()
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
