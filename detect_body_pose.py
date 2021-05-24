@@ -92,11 +92,10 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     #plt.imshow(test_loader, cmap='gray')
     print("Loaded dataset as type of: ")
     print(type(test_loader))
-    print("Loaded dataset consists of types of: ")
-    print(type(test_loader[0]))
-    for t in test_loader:
-        #pred = F.log_softmax(net(t.to(device)))
-        pred1 = stage1.forward(stage1, t)
+    with torch.no_grad():
+        for t in test_loader:
+            pred = F.log_softmax(net(t.to(device)))
+            pred1 = stage1.forward(stage1, t)
 
 
 
