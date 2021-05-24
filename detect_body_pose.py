@@ -20,7 +20,7 @@ from models.selecsls import SelecSLSBlock as stage1
 print("Start detecting body pose on one image")
 
 def imshow(img):
-     matplotlib.get_backend()
+     print(matplotlib.get_backend())
      #img = img / 2 + 0.5
      npimg = img.numpy()
      trpimg = np.transpose(npimg, (1, 2, 0))
