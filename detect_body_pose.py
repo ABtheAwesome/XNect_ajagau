@@ -95,7 +95,9 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     i = 0
     for img, label in test_set:
-        print("Loaded img" + str(i) + "in test_set with shape" + str(img.shape) + "and type" + str(type(img)))
+        print("--------------Loaded img " + str(i) + " ----------------")
+        print("in test_set with shape " + str(img.shape) + "and type " + str(type(img)))
+        print("With label " + str(label))
         i += 1
         if i>4:
             break
@@ -104,9 +106,9 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
 
     #show loaded dataset
-    #dataiter = iter(test_loader)
-    #images, labels = dataiter.next()    
-    #imshow(uti.make_grid(images))
+    dataiter = iter(test_set)
+    images, labels = dataiter.next()    
+    imshow(uti.make_grid(images))
 
     print("Loaded dataset as type of: ")
     print(type(test_loader))
