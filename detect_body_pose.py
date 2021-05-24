@@ -2,8 +2,11 @@ from argparse import ArgumentParser
 import importlib
 
 import matplotlib
-matplotlib.rcParams["backend"] = "TkAgg"
+print(matplotlib.get_backend())
+#matplotlib.rcParams["backend"] = "TkAgg"
+print(matplotlib.get_backend())
 import matplotlib.pyplot as plt
+plt.switch_backend("TkAgg")
 import numpy as np
 
 import torch
@@ -21,7 +24,6 @@ from models.selecsls import SelecSLSBlock as stage1
 print("Start detecting body pose on one image")
 
 def imshow(img):
-     print(matplotlib.get_backend())
      #img = img / 2 + 0.5
      npimg = img.numpy()
      trpimg = np.transpose(npimg, (1, 2, 0))
