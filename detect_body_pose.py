@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 import importlib
 
 import matplotlib
+matplotlib.rcParams["backend"] = "TkAgg"
 import matplotlib.pyplot as plt
 import numpy as np
 
