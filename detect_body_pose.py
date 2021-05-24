@@ -93,8 +93,12 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     dataset = dset.ImageFolder
     test_set = dataset(dataset_base_path,transform=transform)
 
+    i = 0
     for img in test_set:
         print(img)
+        i += 1
+        if i>4:
+            break
     test_loader = DataLoader(test_set, batch_size=1,
                               shuffle=False, num_workers=2, pin_memory=True)
 
