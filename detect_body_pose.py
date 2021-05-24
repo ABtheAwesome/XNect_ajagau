@@ -64,6 +64,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     device = torch.device("cuda:"+str(gpu_id) if torch.cuda.is_available() else "cpu")
     net = net.to(device)
+
     if pruned_and_fused:
         print('Fusing BN and pruning channels based on gamma ' + str(gamma_thresh))
         net.prune_and_fuse(gamma_thresh)
@@ -100,15 +101,15 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     #images, labels = dataiter.next()    
     #imshow(uti.make_grid(images))
 
-    #print("The type of the loaded dataset is " + type(test_loader))
-    #print("Shape of loaded dataset is: " + (np.shape(test_loader)))
     #print(f"The type of the img is: {type(img)}")
     #print(f"Shape of img is: {np.shape(img)}")
     #plt.imshow(test_loader, cmap='gray')
     print("Loaded dataset as type of: ")
     print(type(test_loader))
     with torch.no_grad():
-        for t in test_loader:
+        for t, l in test_loader:
+            model_input = t
+            print(t)
             pred = F.log_softmax(net(t.to(device)))
             pred1 = stage1.forward(stage1, t)
 
