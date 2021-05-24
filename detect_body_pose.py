@@ -22,6 +22,7 @@ def imshow(img):
      img = img / 2 + 0.5
      npimg = img.numpy()
      plt.imshow(np.transpose(npimg, (1, 2, 0)))
+     print("here")
      plt.show()
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
@@ -119,8 +120,8 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
             print("-------------- Image: " + str(i) + " -----------------")
             print("Shape of modelinput:" + str(model_input.shape))
             print("Label is: " + str(label) + "with type " + str(type(label)))            
-            pred = F.log_softmax(net(model_input.to(device)))
-            print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
+            #pred = F.log_softmax(net(model_input.to(device)))
+            #print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
             #print(pred)
             i += 1
             if i>4:
