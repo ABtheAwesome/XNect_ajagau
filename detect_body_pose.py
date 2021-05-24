@@ -2,9 +2,9 @@ from argparse import ArgumentParser
 import importlib
 
 import matplotlib
-print(matplotlib.get_backend())
+#print(matplotlib.get_backend())
 #matplotlib.rcParams["backend"] = "TkAgg"
-print(matplotlib.get_backend())
+#print(matplotlib.get_backend())
 import matplotlib.pyplot as plt
 #plt.switch_backend("TkAgg")
 import numpy as np
@@ -18,19 +18,18 @@ import torchvision.utils as uti
 from torch.utils.data import DataLoader
 torch.backends.cudnn.benchmark = True
 
+import PIL  
+
 import models.selecsls
 from models.selecsls import SelecSLSBlock as stage1
 
 print("Start detecting body pose on one image")
 
-def imshow(img):
+def imsave(img, i, str):
      #img = img / 2 + 0.5
      npimg = img.numpy()
      trpimg = np.transpose(npimg, (1, 2, 0))
-     print(type(trpimg))
-     print(np.shape(trpimg))
-     pltimg = plt.imshow(trpimg)
-     plt.show()
+     trpimg = trpimg.save(str + i + ".png")
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
 def opts_parser():
@@ -106,7 +105,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
         print("--------------Loaded img " + str(i) + " ----------------")
         print("in test_set with shape " + str(img.shape) + "and type " + str(type(img)))
         print("With label " + str(label))
-        imshow(img)
+        imsave(img, i, "test_set_")
         i += 1
         if i>4:
             break
