@@ -96,9 +96,9 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
 
     #show loaded dataset
-    dataiter = iter(test_loader)
-    images = dataiter.next()    
-    imshow(uti.make_grid(images))
+   # dataiter = iter(test_loader)
+    #images, labels = dataiter.next()    
+    #imshow(uti.make_grid(images))
 
     #print("The type of the loaded dataset is " + type(test_loader))
     #print("Shape of loaded dataset is: " + (np.shape(test_loader)))
