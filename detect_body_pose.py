@@ -25,7 +25,6 @@ def imshow(img):
      print(type(trpimg))
      print(np.shape(trpimg))
      pltimg = plt.imshow(trpimg)
-     %matplotlib qt
      plt.show()
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
