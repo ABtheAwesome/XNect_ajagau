@@ -19,10 +19,10 @@ from models.selecsls import SelecSLSBlock as stage1
 print("Start detecting body pose on one image")
 
 def imshow(img):
-     img = img / 2 + 0.5
+     #img = img / 2 + 0.5
      npimg = img.numpy()
      plt.imshow(np.transpose(npimg, (1, 2, 0)))
-     print("here")
+     #print("here")
      plt.show()
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
@@ -117,9 +117,9 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     i = 0
     with torch.no_grad():
         for model_input, label in test_loader:
-            print("-------------- Image: " + str(i) + " -----------------")
-            print("Shape of modelinput:" + str(model_input.shape))
-            print("Label is: " + str(label) + "with type " + str(type(label)))            
+            #print("-------------- Image: " + str(i) + " -----------------")
+            #print("Shape of modelinput:" + str(model_input.shape))
+            #print("Label is: " + str(label) + "with type " + str(type(label)))            
             #pred = F.log_softmax(net(model_input.to(device)))
             #print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
             #print(pred)
