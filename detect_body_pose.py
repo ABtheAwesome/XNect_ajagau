@@ -109,7 +109,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
             print("Shape of modelinput:")
             print(t.shape)
             pred = F.log_softmax(net(t.to(device)))
-            pred1 = stage1.forward(stage1, t)
+            #pred1 = stage1.forward(stage1, t)
 
 
 
