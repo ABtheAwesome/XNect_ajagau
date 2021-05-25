@@ -29,6 +29,7 @@ def imsave(img, i, str):
      #img = img / 2 + 0.5
      npimg = img.numpy()
      trpimg = np.transpose(npimg, (1, 2, 0))
+     print("Type of Image: " + str(type(trpimg)))
      new_img = im.fromarray(trpimg)
      new_img.save(str + i + ".png")
 
