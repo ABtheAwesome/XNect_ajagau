@@ -28,9 +28,10 @@ print("Start detecting body pose on one image")
 def imsave(img, i, name):
      #img = img / 2 + 0.5
      npimg = img.numpy()
-     trpimg = np.transpose(npimg, (1, 2, 0))
+     trpimg = np.transpose(npimg, (2, 1, 0))
      print("Type of Image: " + str(type(trpimg)))
      new_img = im.fromarray(trpimg, 'RGB')
+     print("Saving Image " + name + str(i) + ".png .....")
      new_img.save(name + str(i) + ".png")
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
@@ -98,15 +99,13 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
     # loading dataset and transforming it
-    #dataset = dset.ImageFolder(dataset_base_path, transform=transform)
     dataset = dset.ImageFolder
     test_set = dataset(dataset_base_path,transform=transform)
 
     i = 0
     for img, label in test_set:
-        print("--------------Loaded img " + str(i) + " ----------------")
-        print("in test_set with shape " + str(img.shape) + "and type " + str(type(img)))
-        print("With label " + str(label))
+        print("--------------Img " + str(i) + " in testset----------------")
+        print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
         imsave(img, i, "test_set_")
         i += 1
         if i>4:
@@ -115,10 +114,6 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
                               shuffle=False, num_workers=2, pin_memory=True)
 
 
-    #show loaded dataset
-   # dataiter = iter(test_set)
-   # images, labels = dataiter.next()    
-   # imshow(uti.make_grid(images))
 
     print("Loaded dataset as type of: ")
     print(type(test_loader))
