@@ -31,7 +31,7 @@ def imsave(img, i, name):
      trpimg = np.transpose(npimg, (1, 2, 0))
      print("Type of Image: " + str(type(trpimg)))
      new_img = im.fromarray(trpimg, 'RGB')
-     new_img.save(name + i + ".png")
+     new_img.save(name + str(i) + ".png")
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
 def opts_parser():
