@@ -25,13 +25,13 @@ from models.selecsls import SelecSLSBlock as stage1
 
 print("Start detecting body pose on one image")
 
-def imsave(img, i, str):
+def imsave(img, i, name):
      #img = img / 2 + 0.5
      npimg = img.numpy()
      trpimg = np.transpose(npimg, (1, 2, 0))
      print("Type of Image: " + str(type(trpimg)))
      new_img = im.fromarray(trpimg)
-     new_img.save(str + i + ".png")
+     new_img.save(name + i + ".png")
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
 def opts_parser():
