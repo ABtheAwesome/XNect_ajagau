@@ -89,12 +89,12 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     # defines transformation of images (so every image has the same size etc) 
     # also images get transformed to PyTorch tensors
-    #norm_transform = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    norm_transform = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     transform = transforms.Compose([
         transforms.Resize(256),
         transforms.CenterCrop(224),
         transforms.ToTensor(),
-        #norm_transform
+        norm_transform
     ])
 
     print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
@@ -104,7 +104,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     i = 0
     for img, label in test_set:
-        print("--------------Img " + str(i) + " in testset----------------")
+        print("--------------Image " + str(i) + " in testset----------------")
         print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
         imsave(img, i, "test_set_")
         i += 1
@@ -115,17 +115,15 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
 
 
-    print("Loaded dataset as type of: ")
-    print(type(test_loader))
+    print("Loaded dataset as type of: " + str(type(test_loader)))
     i = 0
     with torch.no_grad():
         for model_input, label in test_loader:
-            #print("-------------- Image: " + str(i) + " -----------------")
-            #print("Shape of modelinput:" + str(model_input.shape))
-            #print("Label is: " + str(label) + "with type " + str(type(label)))            
-            #pred = F.log_softmax(net(model_input.to(device)))
-            #print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
-            #print(pred)
+            print("--------------Image: " + str(i) + " in testloader-----------------")
+            print("Shape: " + str(model_input.shape) + ", Label: " + str(label) + ", Type: " + str(type(label)))            
+            pred = F.log_softmax(net(model_input.to(device)))
+            print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
+            print(pred)
             i += 1
             if i>4:
                 break
