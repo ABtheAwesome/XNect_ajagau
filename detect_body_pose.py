@@ -18,7 +18,7 @@ import torchvision.utils as uti
 from torch.utils.data import DataLoader
 torch.backends.cudnn.benchmark = True
 
-import PIL  
+from PIL import Image as im
 
 import models.selecsls
 from models.selecsls import SelecSLSBlock as stage1
@@ -29,7 +29,8 @@ def imsave(img, i, str):
      #img = img / 2 + 0.5
      npimg = img.numpy()
      trpimg = np.transpose(npimg, (1, 2, 0))
-     trpimg = trpimg.save(str + i + ".png")
+     new_img = im.fromarray(trpimg)
+     new_img.save(str + i + ".png")
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
 def opts_parser():
