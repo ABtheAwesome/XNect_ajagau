@@ -55,8 +55,14 @@ def opts_parser():
         help='gamma threshold to use for simulating pruning')
     return parser
 
-def imsave(img, i, name):
-     img = img / 2 + 0.5
+
+
+
+
+
+#saves tensor to img.png
+def tensorToImgSave(img, i, name):
+     #img = img / 2 + 0.5
      npimg = img.numpy()
      trpimg = np.transpose(npimg, (1, 2, 0))
      new_img = im.fromarray(trpimg, 'RGB')
@@ -92,8 +98,8 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     # also images get transformed to PyTorch tensors
     norm_transform = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     transform = transforms.Compose([
-        transforms.RandomResizedCrop(224),
-        transforms.RandomHorizontalFlip(),
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
         transforms.ToTensor(),
         norm_transform
     ])
@@ -103,6 +109,15 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
     # loading dataset and transforming it
     dataset = dset.ImageFolder
+    show_set = dataset(dataset_base_path)
+    i = 0
+    for img, label in show_set:
+        img.save(str(label) + str(i) + ".png")
+        i += 1
+        if i > 4:
+            break
+
+
     test_set = dataset(dataset_base_path,transform=transform)
    
 
@@ -110,10 +125,10 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     for img, label in test_set:
         print("--------------Image " + str(i) + " in testset----------------")
         print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
-        imsave(img, i, "test_set_")
+        tensorToImgSave(img, i, "test_set_")
         #print(img)
         i += 1
-        if i>4:
+        if i > 4:
             break
 
 
@@ -126,7 +141,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
         for model_input, label in test_loader:
             print("--------------Image: " + str(i) + " in testloader-----------------")
             #print("Shape: " + str(model_input.shape) + ", Label: " + str(label) + ", Type: " + str(type(label)))            
-            pred = F.log_softmax(net(model_input.to(device)), dim=1)
+            pred = F.log_softmax(net(model_input.to(device)))
             print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
             #print(pred)
             i += 1
