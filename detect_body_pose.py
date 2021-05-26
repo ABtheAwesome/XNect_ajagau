@@ -89,7 +89,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     model_module = importlib.import_module('models.'+model_class)
     net = model_module.Net(nClasses=20, config=model_config)
-    net.load_state_dict(torch.load(model_weights, map_location= lambda storage, loc: storage))
+    #net.load_state_dict(torch.load(model_weights, map_location= lambda storage, loc: storage))
 
     device = torch.device("cuda:"+str(gpu_id) if torch.cuda.is_available() else "cpu")
     net = net.to(device)
