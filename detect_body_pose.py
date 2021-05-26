@@ -33,6 +33,7 @@ def imsave(img, i, name):
      #new_img = im.fromarray(trpimg, 'RGB')
      print("Saving Image " + name + str(i) + ".png .....")
      new_img = img
+     print(im.asarray(img))
      new_img.save(name + str(i) + ".png")
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
