@@ -33,7 +33,6 @@ def imsave(img, i, name):
      #new_img = im.fromarray(trpimg, 'RGB')
      print("Saving Image " + name + str(i) + ".png .....")
      new_img = img
-     print(im.asarray(img))
      new_img.save(name + str(i) + ".png")
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
@@ -91,7 +90,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     # defines transformation of images (so every image has the same size etc) 
     # also images get transformed to PyTorch tensors
-    #norm_transform = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    norm_transform = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     #transform = transforms.Compose([
     #    transforms.Resize(256),
     #    transforms.CenterCrop(224),
@@ -102,7 +101,8 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     transform = transforms.Compose([
         transforms.Resize(256),
         transforms.CenterCrop(224),
-        #transforms.ToTensor()
+        #transforms.ToTensor(),
+        norm_transform
     ])
 
     print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
