@@ -100,6 +100,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     transform = transforms.Compose([
         transforms.Resize(256),
+        transforms.CenterCrop(224),
         #transforms.ToTensor()
     ])
 
