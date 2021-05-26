@@ -25,15 +25,6 @@ from models.selecsls import SelecSLSBlock as stage1
 
 print("Start detecting body pose on one image")
 
-def imsave(img, i, name):
-     img = img / 2 + 0.5
-     npimg = img.numpy()
-     trpimg = np.transpose(npimg, (1, 2, 0))
-     print("Type of Image: " + str(type(trpimg)))
-     new_img = im.fromarray(trpimg, 'RGB')
-     print("Saving Image " + name + str(i) + ".png .....")
-     new_img.save(name + str(i) + ".png")
-
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
 def opts_parser():
     usage = 'Configure the dataset using image from ./data'
@@ -63,6 +54,16 @@ def opts_parser():
         '--gamma_thresh', type=float, default=1e-4,
         help='gamma threshold to use for simulating pruning')
     return parser
+
+def imsave(img, i, name):
+     img = img / 2 + 0.5
+     npimg = img.numpy()
+     trpimg = np.transpose(npimg, (1, 2, 0))
+     new_img = im.fromarray(trpimg, 'RGB')
+     print("Saving Image " + name + str(i) + ".png .....")
+     new_img.save(name + str(i) + ".png")
+
+
 
 
 def start_recognizing_body_pose(model_class, model_config, model_weights, dataset_base_path, gpu_id, simulate_pruning, pruned_and_fused, gamma_thresh):
@@ -94,10 +95,11 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
         transforms.Resize(256),
         transforms.CenterCrop(224),
         transforms.ToTensor(),
-        #norm_transform
+        norm_transform
     ])
 
 
+    net.eval()
     print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
     # loading dataset and transforming it
     dataset = dset.ImageFolder
@@ -107,9 +109,9 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     i = 0
     for img, label in test_set:
         print("--------------Image " + str(i) + " in testset----------------")
-        #print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
+        print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
         imsave(img, i, "test_set_")
-        print(img)
+        #print(img)
         i += 1
         if i>4:
             break
