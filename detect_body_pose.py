@@ -72,6 +72,15 @@ def tensorToImgSave(img, i, name):
 
 
 
+def plotPrediction(pred):
+    nppred = pred.numpy()
+    plt.plot(range[1000], nppred[1])
+    plt.show()
+
+
+
+
+
 def start_recognizing_body_pose(model_class, model_config, model_weights, dataset_base_path, gpu_id, simulate_pruning, pruned_and_fused, gamma_thresh):
     print("Starting to recognize body pose (detect_body_pose.py line 47)")
 
@@ -127,36 +136,34 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     ])
     test_set = dataset(dataset_base_path,transform=transform)
     i = 0
-   # for img, label in test_set:
-    #    print("--------------Image " + str(i) + " in testset----------------")
-     #   print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
-      #  tensorToImgSave(img, i, "test_set_")
+    for img, label in test_set:
+        print("--------------Image " + str(i) + " in testset----------------")
+        print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
+        tensorToImgSave(img, i, "test_set_")
         #print(img)
-       # i += 1
-        #if i > 4:
-         #   break
+        i += 1
+        if i > 4:
+            break
 
 
 
-    test_loader = DataLoader(test_set, batch_size=10,
+    test_loader = DataLoader(test_set, batch_size=1,
                               shuffle=False, num_workers=8, pin_memory=True)
     print(" ")
     print("Loaded dataset as type of: " + str(type(test_loader)))
     i = 0
     with torch.no_grad():
         for model_input, label in test_loader:
-            #print("--------------Image: " + str(i) + " in testloader-----------------")
-            print("Shape: " + str(model_input.shape) + ", Label: " + str(label) + ", Type: " + str(type(label)))            
-            #pred = F.log_softmax(net(model_input.to(device)))
-            #print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
+            print("MODELINPUT " + str(i) + ", Shape: " + str(model_input.shape) + ", Label: " + str(label) + ", Type: " + str(type(label)))            
+            pred = F.log_softmax(net(model_input.to(device)))
+            print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
             #print(pred)
 
-            #plt.plot(range(1000), pred[1])
-            #plt.show()
-            #tensorToImgSave(pred, i, str(label))
+            plotPrediction(pred)
+
             i += 1
-            #if i>4:
-            #    break
+            if i>4:
+                break
             #pred1 = stage1.forward(stage1, t)
 
     print(i)
