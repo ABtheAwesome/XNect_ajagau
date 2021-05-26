@@ -92,8 +92,8 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     # also images get transformed to PyTorch tensors
     norm_transform = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     transform = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
+        transforms.RandomResizedCrop(224),
+        transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         norm_transform
     ])
@@ -118,7 +118,8 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
 
     test_loader = DataLoader(test_set, batch_size=1,
-                              shuffle=False, num_workers=2, pin_memory=True)
+                              shuffle=False, num_workers=8, pin_memory=True)
+    print(" ")
     print("Loaded dataset as type of: " + str(type(test_loader)))
     i = 0
     with torch.no_grad():
