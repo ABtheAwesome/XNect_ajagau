@@ -150,7 +150,10 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
             pred = F.log_softmax(net(model_input.to(device)))
             print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
             #print(pred)
-            tensorToImgSave(pred, i, str(label))
+
+            plt.plot(range(1000), pred[1])
+            plt.show()
+            #tensorToImgSave(pred, i, str(label))
             i += 1
             if i>4:
                 break
