@@ -39,7 +39,8 @@ def opts_parser():
         '--model_weights', type=str, default='./weights/SelecSLS60_statedict.pth', metavar='FILE',
         help='Path to model weights')
     parser.add_argument(
-        '--dataset_base_path', type=str, default='../MultiPersonTestSet', metavar='FILE',
+        #'--dataset_base_path', type=str, default='../MultiPersonTestSet', metavar='FILE',
+        '--dataset_base_path', type=str, default='./data/test', metavar='FILE',
         help='Path to dataset')
     parser.add_argument(
         '--gpu_id', type=int, default=0,
