@@ -30,7 +30,7 @@ def imsave(img, i, name):
      npimg = img.numpy()
      trpimg = np.transpose(npimg, (1, 2, 0))
      print("Type of Image: " + str(type(trpimg)))
-     new_img = im.fromarray(trpimg, 'BGR;24')
+     new_img = im.fromarray(trpimg, 'RGB')
      print("Saving Image " + name + str(i) + ".png .....")
      new_img.save(name + str(i) + ".png")
 
