@@ -74,11 +74,10 @@ def tensorToImgSave(img, i, name):
 
 def plotPrediction(pred, i):
     nppred = pred.numpy()
-    print(np.shape(nppred))
     #print(np.shape(nppred.T()))
     plt.plot(np.arange(1000), nppred[0])
-    plt.savefig("predition_" + str(i) + ".png")
-    #plt.show()
+    plt.savefig("prediction_" + str(i) + ".png")
+    plt.show()
 
 
 
@@ -169,7 +168,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
                 break
             #pred1 = stage1.forward(stage1, t)
 
-    print(i)
+    
 
 
 def main():
