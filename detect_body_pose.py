@@ -94,6 +94,28 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
                     m.weight[abs(m.weight) < gamma_thresh] = 0
                     m.bias[abs(m.weight) < gamma_thresh] = 0
 
+
+    net.eval()
+    dataset = dset.ImageFolder
+
+    
+    print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
+    # loading dataset and transforming it
+    show_transform = transforms.Compose([
+        transforms.Resize(256),
+        transforms.CenterCrop(224)
+    ])
+    show_set = dataset(dataset_base_path, transform=show_transform)
+    i = 0
+    for img, label in show_set:
+        img.save(str(label) + str(i) + ".png")
+        i += 1
+        if i > 4:
+            break
+
+
+
+
     # defines transformation of images (so every image has the same size etc) 
     # also images get transformed to PyTorch tensors
     norm_transform = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
@@ -103,25 +125,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
         transforms.ToTensor(),
         norm_transform
     ])
-
-
-    net.eval()
-    print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
-    # loading dataset and transforming it
-    dataset = dset.ImageFolder
-    show_set = dataset(dataset_base_path, transform=transforms.Compose([transforms.Resize(256),
-    transforms.CenterCrop(224)]))
-    i = 0
-    for img, label in show_set:
-        img.save(str(label) + str(i) + ".png")
-        i += 1
-        if i > 4:
-            break
-
-
     test_set = dataset(dataset_base_path,transform=transform)
-   
-
     i = 0
     for img, label in test_set:
         print("--------------Image " + str(i) + " in testset----------------")
@@ -133,7 +137,8 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
             break
 
 
-    test_loader = DataLoader(test_set, batch_size=1,
+
+    test_loader = DataLoader(test_set, batch_size=10,
                               shuffle=False, num_workers=8, pin_memory=True)
     print(" ")
     print("Loaded dataset as type of: " + str(type(test_loader)))
@@ -145,6 +150,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
             pred = F.log_softmax(net(model_input.to(device)))
             print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
             #print(pred)
+            tensorToImgSave(pred, i, str(label))
             i += 1
             if i>4:
                 break
