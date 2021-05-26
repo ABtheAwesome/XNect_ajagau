@@ -158,9 +158,9 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     with torch.no_grad():
         for model_input, label in test_loader:
             print("MODELINPUT " + str(i) + ", Shape: " + str(model_input.shape) + ", Label: " + str(label) + ", Type: " + str(type(label)))            
-            pred = F.log_softmax(net(model_input.to(device)))
+            pred = net(model_input.to(device))
             print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
-            #print(pred)
+            print(pred)
 
             plotPrediction(pred, i)
 
