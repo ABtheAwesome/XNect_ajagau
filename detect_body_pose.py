@@ -89,20 +89,24 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     # defines transformation of images (so every image has the same size etc) 
     # also images get transformed to PyTorch tensors
-    norm_transform = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    #norm_transform = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    #transform = transforms.Compose([
+    #    transforms.Resize(256),
+    #    transforms.CenterCrop(224),
+    #    transforms.ToTensor(),
+    #    norm_transform
+    #])
+
     transform = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        norm_transform
+        transforms.ToTensor()
     ])
 
     print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
     # loading dataset and transforming it
     dataset = dset.ImageFolder
-    #test_set = dataset(dataset_base_path,transform=transform)
-    test_set = dataset(dataset_base_path)
-    
+    test_set = dataset(dataset_base_path,transform=transform)
+   
+
     i = 0
     for img, label in test_set:
         print("--------------Image " + str(i) + " in testset----------------")
