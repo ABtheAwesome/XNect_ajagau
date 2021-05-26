@@ -28,9 +28,9 @@ print("Start detecting body pose on one image")
 def imsave(img, i, name):
      #img = img / 2 + 0.5
      npimg = img.numpy()
-     trpimg = np.transpose(npimg, (2, 1, 0))
+     trpimg = np.transpose(npimg, (1, 2, 0))
      print("Type of Image: " + str(type(trpimg)))
-     new_img = im.fromarray(trpimg, 'RGB')
+     new_img = im.fromarray(trpimg, 'BGR')
      print("Saving Image " + name + str(i) + ".png .....")
      new_img.save(name + str(i) + ".png")
 
@@ -107,14 +107,14 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
         print("--------------Image " + str(i) + " in testset----------------")
         print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
         imsave(img, i, "test_set_")
+        print(img)
         i += 1
         if i>4:
             break
+
+
     test_loader = DataLoader(test_set, batch_size=1,
                               shuffle=False, num_workers=2, pin_memory=True)
-
-
-
     print("Loaded dataset as type of: " + str(type(test_loader)))
     i = 0
     with torch.no_grad():
