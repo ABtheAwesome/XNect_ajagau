@@ -27,11 +27,12 @@ print("Start detecting body pose on one image")
 
 def imsave(img, i, name):
      #img = img / 2 + 0.5
-     npimg = img.numpy()
-     trpimg = np.transpose(npimg, (1, 2, 0))
-     print("Type of Image: " + str(type(trpimg)))
-     new_img = im.fromarray(trpimg, 'RGB')
+     #npimg = img.numpy()
+     #trpimg = np.transpose(npimg, (1, 2, 0))
+     #print("Type of Image: " + str(type(trpimg)))
+     #new_img = im.fromarray(trpimg, 'RGB')
      print("Saving Image " + name + str(i) + ".png .....")
+     new_img = img
      new_img.save(name + str(i) + ".png")
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
