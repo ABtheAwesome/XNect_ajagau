@@ -145,21 +145,22 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     i = 0
     with torch.no_grad():
         for model_input, label in test_loader:
-            print("--------------Image: " + str(i) + " in testloader-----------------")
-            #print("Shape: " + str(model_input.shape) + ", Label: " + str(label) + ", Type: " + str(type(label)))            
-            pred = F.log_softmax(net(model_input.to(device)))
-            print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
+            #print("--------------Image: " + str(i) + " in testloader-----------------")
+            print("Shape: " + str(model_input.shape) + ", Label: " + str(label) + ", Type: " + str(type(label)))            
+            #pred = F.log_softmax(net(model_input.to(device)))
+            #print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
             #print(pred)
 
-            plt.plot(range(1000), pred[1])
-            plt.show()
+            #plt.plot(range(1000), pred[1])
+            #plt.show()
             #tensorToImgSave(pred, i, str(label))
             i += 1
-            if i>4:
-                break
+            #if i>4:
+            #    break
             #pred1 = stage1.forward(stage1, t)
 
-
+    print(i)
+    exit()
 
 
 def main():
