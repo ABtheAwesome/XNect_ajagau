@@ -109,7 +109,8 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
     # loading dataset and transforming it
     dataset = dset.ImageFolder
-    show_set = dataset(dataset_base_path)
+    show_set = dataset(dataset_base_path, transform=transforms.Compose([transforms.Resize(256),
+    transforms.CenterCrop(224)]))
     i = 0
     for img, label in show_set:
         img.save(str(label) + str(i) + ".png")
