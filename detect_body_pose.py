@@ -127,14 +127,14 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     ])
     test_set = dataset(dataset_base_path,transform=transform)
     i = 0
-    for img, label in test_set:
-        print("--------------Image " + str(i) + " in testset----------------")
-        print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
-        tensorToImgSave(img, i, "test_set_")
+   # for img, label in test_set:
+    #    print("--------------Image " + str(i) + " in testset----------------")
+     #   print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
+      #  tensorToImgSave(img, i, "test_set_")
         #print(img)
-        i += 1
-        if i > 4:
-            break
+       # i += 1
+        #if i > 4:
+         #   break
 
 
 
@@ -160,7 +160,6 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
             #pred1 = stage1.forward(stage1, t)
 
     print(i)
-    exit()
 
 
 def main():
