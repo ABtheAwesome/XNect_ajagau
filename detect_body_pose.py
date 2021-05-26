@@ -99,7 +99,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
 
     transform = transforms.Compose([
         transforms.Resize(256),
-        transforms.ToTensor()
+        #transforms.ToTensor()
     ])
 
     print("Loading local dataset (detect_body_pose.py line 77) in" + str(dataset_base_path))
@@ -126,8 +126,8 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     with torch.no_grad():
         for model_input, label in test_loader:
             print("--------------Image: " + str(i) + " in testloader-----------------")
-            print("Shape: " + str(model_input.shape) + ", Label: " + str(label) + ", Type: " + str(type(label)))            
-            pred = F.log_softmax(net(model_input.to(device)), dim=3)
+            #print("Shape: " + str(model_input.shape) + ", Label: " + str(label) + ", Type: " + str(type(label)))            
+            pred = F.log_softmax(net(model_input.to(device)), dim=1)
             print("Shape of prediction is " + str(pred.shape) + "with type" + str(type(pred)))
             #print(pred)
             i += 1
