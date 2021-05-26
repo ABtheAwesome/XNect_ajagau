@@ -111,7 +111,7 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     i = 0
     for img, label in test_set:
         print("--------------Image " + str(i) + " in testset----------------")
-        print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
+        #print("Shape: " + str(img.shape) + ", Type: " + str(type(img)) + ", Label: " + str(label))
         imsave(img, i, "test_set_")
         print(img)
         i += 1
