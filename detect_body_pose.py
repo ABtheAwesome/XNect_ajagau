@@ -74,9 +74,8 @@ def tensorToImgSave(img, i, name):
 
 def plotPrediction(pred):
     nppred = pred.numpy()
-    print(type(nppred))
     print(np.shape(nppred))
-    print(np.shape(nppred.T()))
+    #print(np.shape(nppred.T()))
     plt.plot(np.arange(500), nppred[1])
     plt.show()
 
