@@ -171,7 +171,7 @@ class SelecSLSBlockFused(nn.Module):
             return [self.conv6(torch.cat([d1, d2, d3, x[1]], 1)) , x[1]]
 
 class Net(nn.Module):
-    def __init__(self, nClasses=20, config='SelecSLS60'):
+    def __init__(self, nClasses=1000, config='SelecSLS60'):
         super(Net, self).__init__()
 
         #Stem
