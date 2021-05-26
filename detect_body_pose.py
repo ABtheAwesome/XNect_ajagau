@@ -24,6 +24,7 @@ import models.selecsls
 from models.selecsls import SelecSLSBlock as stage1
 
 print("Start detecting body pose on one image")
+nClasses = 20
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
 def opts_parser():
@@ -76,7 +77,7 @@ def tensorToImgSave(img, i, name):
 def plotPrediction(pred, i):
     nppred = pred.numpy()
     #print(np.shape(nppred.T()))
-    plt.plot(np.arange(1000), nppred[0], 'g')
+    plt.plot(np.arange(nClasses), nppred[0], 'g')
     plt.savefig("prediction_" + str(i) + ".png")
     plt.show()
 
@@ -88,8 +89,8 @@ def start_recognizing_body_pose(model_class, model_config, model_weights, datase
     print("Starting to recognize body pose (detect_body_pose.py line 47)")
 
     model_module = importlib.import_module('models.'+model_class)
-    net = model_module.Net(nClasses=20, config=model_config)
-    #net.load_state_dict(torch.load(model_weights, map_location= lambda storage, loc: storage))
+    net = model_module.Net(nClasses=nClasses, config=model_config)
+    net.load_state_dict(torch.load(model_weights, map_location= lambda storage, loc: storage))
 
     device = torch.device("cuda:"+str(gpu_id) if torch.cuda.is_available() else "cpu")
     net = net.to(device)
