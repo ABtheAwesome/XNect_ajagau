@@ -24,7 +24,7 @@ import models.selecsls
 from models.selecsls import SelecSLSBlock as stage1
 
 print("Start detecting body pose on one image")
-nClasses = 20
+nClasses = 1000
 
 #Argumente werden festgelegt, u.a. welches Model genutzt wird und welche Datenbank.
 def opts_parser():

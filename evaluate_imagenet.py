@@ -90,7 +90,6 @@ def evaluate_imagenet_validation_accuracy(model_class, model_config, model_weigh
 
     net.eval()
     _,test_loader = get_data_loader(augment=False, batch_size=100, base_path=imagenet_base_path)
-    #_,test_loader = get_data_loader(augment=False, batch_size=5, base_path=imagenet_base_path)
     with torch.no_grad():
         val1_err = []
         val5_err = []
