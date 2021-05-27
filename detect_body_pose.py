@@ -35,10 +35,10 @@ def opts_parser():
         help='Select model type to use (DenseNet, SelecSLS, ResNet etc.)')
     parser.add_argument(
         #'--model_config', type=str, default='SelecSLS60', metavar='NET_CONFIG',
-        '--model_config', type=str, default='SelecSLS84', metavar='NET_CONFIG',
+        '--model_config', type=str, default='SelecSLS42', metavar='NET_CONFIG',
         help='Select the model configuration')
     parser.add_argument(
-        '--model_weights', type=str, default='./weights/SelecSLS84_statedict.pth', metavar='FILE',
+        '--model_weights', type=str, default='./weights/SelecSLS42_statedict.pth', metavar='FILE',
         help='Path to model weights')
     parser.add_argument(
         #'--dataset_base_path', type=str, default='../MultiPersonTestSet', metavar='FILE',
